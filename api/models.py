@@ -14,14 +14,14 @@ class Vendor(models.Model):
 class PurchaseOrder(models.Model):
     po_number=models.CharField() #- Unique number identifying the PO.
     vendor=models.ForeignKey(Vendor,on_delete=models.CASCADE) #- Link to the Vendor model.
-    order_date=models.DateTimeField(auto_now_add=True) #- Date when the order was placed.
-    delivery_date=models.DateTimeField(auto_now_add=True) #- Expected or actual delivery date of the order.
+    order_date=models.DateTimeField(auto_now=True) #- Date when the order was placed.
+    delivery_date=models.DateTimeField(auto_now=True) #- Expected or actual delivery date of the order.
     items=models.JSONField() #- Details of items ordered.
     quantity=models.IntegerField() #- Total quantity of items in the PO.
     status=models.CharField() #- Current status of the PO (e.g., pending, completed, canceled).
     quality_rating=models.FloatField() #- Rating given to the vendor for this PO (nullable).
-    issue_date=models.DateTimeField(auto_now_add=True) #- Timestamp when the PO was issued to the vendor.
-    acknowledgment_date=models.DateTimeField(auto_now_add=True)
+    issue_date=models.DateTimeField(auto_now=True) #- Timestamp when the PO was issued to the vendor.
+    acknowledgment_date=models.DateTimeField(auto_now=True)
 
 class Performance(models.Model):
     vendor= models.ForeignKey(Vendor,on_delete=models.CASCADE)   # - Link to the Vendor model.
