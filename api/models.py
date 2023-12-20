@@ -28,6 +28,6 @@ class Performance(models.Model):
     vendor= models.ForeignKey(Vendor,on_delete=models.CASCADE)   # - Link to the Vendor model.
     date= models.DateTimeField(auto_now=True)   # - Date of the performance record.
     on_time_delivery_rate= models.FloatField()   # - Historical record of the on-time delivery rate.
-    quality_rating_avg= models.FloatField()   # - Historical record of the quality rating average.
+    quality_rating_avg= models.FloatField(null=True)   # - Historical record of the quality rating average.
     average_response_time= models.FloatField()   # - Historical record of the average response time.
     fulfillment_rate= models.FloatField()
