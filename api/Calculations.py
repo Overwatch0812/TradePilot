@@ -1,29 +1,52 @@
 from .models import *
+from datetime import datetime
 
 def On_Time_Delivery_Rate(id):
-    vendor=PurchaseOrder.objects.filter(vendor=id)
+        in_time=0
+        PO=PurchaseOrder.objects.filter(vendor=id)
+        for i in PO:
+                dateTime1=str(i.expected_delivery_date)
+                date1=dateTime1[0:10]
+                expected=datetime.strptime(date1,"%Y-%m-%d")
+                dateTime2=str(i.delivered_date)
+                date2=dateTime2[0:10]
+                delivered=datetime.strptime(date2,"%Y-%m-%d")
+                if delivered<=expected:
+                        in_time+=1
+        return (in_time/len(PO))*100
+
 def Quality_Rating_Average(id):
-    pass
+    counter=0
+    total=0
+    PO=PurchaseOrder.objects.filter(vendor=id)
+    for i in PO:
+        if i.status=="completed":
+            total+=i.quality_rating
+            counter+=1
+    return total/counter
+
 def Average_Response_Time(id):
-    pass
+    PO=PurchaseOrder.objects.filter(vendor=id)
+    total=0
+    for i in PO:
+        issue_date=str(i.issue_date)
+        issue_date1=issue_date[0:10]
+        issue_date2=datetime.strptime(issue_date1,"%Y-%m-%d")
+        ack=str(i.acknowledgment_date)
+        ack1=ack[0:10]
+        ack2=datetime.strptime(ack1,"%Y-%m-%d")
+        time_diff=(issue_date2-ack2).days
+        total+=time_diff
+    return total/len(PO)*100
+
+
+
 def Fulfilment_Rate(id):
-    pass
+    successful=0
+    PO=PurchaseOrder.objects.filter(vendor=id)
+    for i in PO:
+        if i.status=="completed":
+            successful+=1
+    return successful/len(PO)*100
 
 
-
-# On-Time Delivery Rate:
-# ● Calculated each time a PO status changes to 'completed'.
-# ● Logic: Count the number of completed POs delivered on or before
-# delivery_date and divide by the total number of completed POs for that vendor.
-#  Quality Rating Average:
-# ● Updated upon the completion of each PO where a quality_rating is provided.
-# ● Logic: Calculate the average of all quality_rating values for completed POs of
-# the vendor.
-#  Average Response Time:
-# ● Calculated each time a PO is acknowledged by the vendor.
-# ● Logic: Compute the time difference between issue_date and
-# acknowledgment_date for each PO, and then find the average of these times
-# for all POs of the vendor.
-#  Fulfilment Rate:Calculated upon any change in PO status.
-# ● Logic: Divide the number of successfully fulfilled POs (status 'completed'
-# without issues) by the total number of POs issued to the vendor.

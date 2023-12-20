@@ -12,14 +12,15 @@ class Vendor(models.Model):
     fulfillment_rate=models.FloatField(null=True)
 
 class PurchaseOrder(models.Model):
-    po_number=models.CharField() #- Unique number identifying the PO.
+    po_number=models.CharField(max_length=50) #- Unique number identifying the PO.
     vendor=models.ForeignKey(Vendor,on_delete=models.CASCADE) #- Link to the Vendor model.
     order_date=models.DateTimeField(auto_now=True) #- Date when the order was placed.
-    delivery_date=models.DateTimeField(null=True) #to be given by vendor #- Expected or actual delivery date of the order.
+    expected_delivery_date=models.DateTimeField(null=True) #to be given by vendor #- Expected or actual delivery date of the order.
+    delivered_date=models.DateTimeField(null=True)
     items=models.JSONField() #- Details of items ordered.
     quantity=models.IntegerField() #- Total quantity of items in the PO.
-    status=models.CharField() #- Current status of the PO (e.g., pending, completed, canceled).
-    quality_rating=models.FloatField() #- Rating given to the vendor for this PO (nullable).
+    status=models.CharField(max_length=50) #- Current status of the PO (e.g., pending, completed, canceled).
+    quality_rating=models.FloatField(null=True) #- Rating given to the vendor for this PO (nullable).
     issue_date=models.DateTimeField(auto_now=True) #- Timestamp when the PO was issued to the vendor.
     acknowledgment_date=models.DateTimeField(null=True) #to be given by vendor
 
