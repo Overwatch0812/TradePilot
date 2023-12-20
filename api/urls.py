@@ -14,5 +14,7 @@ urlpatterns = [
     path('purchase_order/<int:pk>/update/',updatePurchaseOrderDetail.as_view()),
     path('purchase_order/<int:pk>/delete/',deletePurchaseOrder.as_view()),
     #for performance
-    path('vendors/<int:pk>/performance/',PerformanceView.as_view())
+    path('vendors/<int:pk>/performance/',PerformanceView.as_view()),
+    # for update of acknowledge
+    path('purchase_order/<int:pk>/acknowledge/',Recalc.as_view()),
 ]

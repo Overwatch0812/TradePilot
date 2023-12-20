@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import *
 from django.http import HttpResponse
@@ -71,3 +72,15 @@ class PerformanceView(generics.RetrieveAPIView):
         else:
             return HttpResponse("No Orders of current vendor")
     
+
+class Recalc(APIView):
+    def get_object(self, pk):
+        return PurchaseOrder.objects.get(pk=pk)
+
+    def patch(self, request, pk):
+        modelz = self.get_object(pk)
+        serializer = PurchaseOrderSerializer(modelz, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response("wrong parameters")
