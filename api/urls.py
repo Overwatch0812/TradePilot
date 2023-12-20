@@ -13,4 +13,6 @@ urlpatterns = [
     path('purchase_order/<int:pk>/detail/',PurchaseOrderDetail.as_view()),
     path('purchase_order/<int:pk>/update/',updatePurchaseOrderDetail.as_view()),
     path('purchase_order/<int:pk>/delete/',deletePurchaseOrder.as_view()),
+    #for performance
+    path('vendors/<int:pk>/performance/',PerformanceView.as_view())
 ]

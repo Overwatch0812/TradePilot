@@ -3,6 +3,7 @@ from rest_framework import generics
 from rest_framework.response import Response
 from .serializers import *
 from django.http import HttpResponse
+from .models import *
 # Create your views here.
 
 
@@ -57,3 +58,16 @@ class updatePurchaseOrderDetail(generics.UpdateAPIView):
 class deletePurchaseOrder(generics.DestroyAPIView):
     serializer_class=PurchaseOrderSerializer
     queryset=PurchaseOrder.objects.all()
+
+class PerformanceView(generics.RetrieveAPIView):
+    def get_queryset(self):
+        queryset=Performance.objects.all()
+        return queryset
+    def get(self,request,pk):
+        perform=Performance.objects.filter(vendor=pk).latest('date')
+        if perform:
+            serialized=PerformanceSerializer(perform)
+            return Response(serialized.data)
+        else:
+            return HttpResponse("No Orders of current vendor")
+    
