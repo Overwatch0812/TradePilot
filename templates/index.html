@@ -4,8 +4,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      h1 {
+        font-size: 3rem;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello World</h1>
+    <h1>TradePilot</h1>
+    <h2>Endpoints To use TradePilot database model</h2>
+    <h3>For Vendors</h3>
+    <ul>
+      <li>/api/vendors/: used to display all the vendors in tha database</li>
+      <li>/api/vendors/create/ : used to create new vendor</li>
+      <li>
+        /api/vendors/vendor_id/detail/ : used to view the details of a
+        particular vendor
+      </li>
+      <li>
+        /api/vendors/vendor_id/update/ : sed to update the details of a vendor
+      </li>
+      <li>/api/vendors/vendor_id/delete/ : used to delete a vendor</li>
+    </ul>
+    <h3>For Purchase Orders</h3>
+    <ul>
+      <li>
+        /api/purchase_order/vendor_id/: used to display all the purchase order
+        of a particular vendor in tha database
+      </li>
+      <li>/api/purchase_order/create/ : used to create new Purchase order</li>
+      <li>
+        /api/purchase_order/PO_id/detail/ : used to view the details of a
+        particular Purchase order
+      </li>
+      <li>
+        /api/purchase_order/PO_id/update/ : used to update the details of a
+        Purchase order
+      </li>
+      <li>
+        /api/purchase_order/PO_id/delete/ : used to delete a Purchase order
+      </li>
+    </ul>
+    <h3>For Performance Measurement</h3>
+    <ul>
+      <li>
+        /api/vendors/vendor_id/performance/: retrieves the calculated
+        performance metrics for a specific vendor
+      </li>
+    </ul>
+    <h3>For PO Acknowledgement</h3>
+    <ul>
+      <li>
+        /api/purchase_order/<int:pk>/acknowledge/: an endpoint for vendors to acknowledge Purchase order
+      </li>
+    </ul>
+    <h3>Created and Maitained By Sahil Nikshe</h3>
   </body>
 </html>

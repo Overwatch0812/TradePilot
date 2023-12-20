@@ -6,43 +6,51 @@ from .serializers import *
 from django.http import HttpResponse
 from .models import *
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 # Create your views here.
 
 
 # For Vendor
 class createVendor(generics.CreateAPIView):
+    authentication_classes = [TokenAuthentication]
     permission_classes=[IsAuthenticated]
     serializer_class=VendorSerializer
     queryset=Vendor.objects.all()
 
 class listVendor(generics.ListAPIView):
+    authentication_classes = [TokenAuthentication]
     permission_classes=[IsAuthenticated]
     serializer_class=VendorSerializer
     queryset=Vendor.objects.all()
 
 class vendorDetail(generics.RetrieveAPIView):
+    authentication_classes = [TokenAuthentication]
     permission_classes=[IsAuthenticated]
     serializer_class=VendorSerializer
     queryset=Vendor.objects.all()
     lookup_field='pk'
 
 class updateVendorDetail(generics.UpdateAPIView):
+    authentication_classes = [TokenAuthentication]
     permission_classes=[IsAuthenticated]
     serializer_class=VendorSerializer
     queryset=Vendor.objects.all()
 
 class deleteVendor(generics.DestroyAPIView):
+    authentication_classes = [TokenAuthentication]
     permission_classes=[IsAuthenticated]
     serializer_class=VendorSerializer
     queryset=Vendor.objects.all()
 
 # For Purchase Order
 class createPurchaseOrder(generics.CreateAPIView):
+    authentication_classes = [TokenAuthentication]
     permission_classes=[IsAuthenticated]
     serializer_class=PurchaseOrderSerializer
     queryset=PurchaseOrder.objects.all()
 
 class listPurchaseOrder(generics.ListAPIView):
+    authentication_classes = [TokenAuthentication]
     permission_classes=[IsAuthenticated]
     def get_queryset(self):
         queryset=PurchaseOrder.objects.all()
