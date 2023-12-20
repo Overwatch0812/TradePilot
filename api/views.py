@@ -5,37 +5,45 @@ from rest_framework.response import Response
 from .serializers import *
 from django.http import HttpResponse
 from .models import *
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 
 # For Vendor
 class createVendor(generics.CreateAPIView):
+    permission_classes=[IsAuthenticated]
     serializer_class=VendorSerializer
     queryset=Vendor.objects.all()
 
 class listVendor(generics.ListAPIView):
+    permission_classes=[IsAuthenticated]
     serializer_class=VendorSerializer
     queryset=Vendor.objects.all()
 
 class vendorDetail(generics.RetrieveAPIView):
+    permission_classes=[IsAuthenticated]
     serializer_class=VendorSerializer
     queryset=Vendor.objects.all()
     lookup_field='pk'
 
 class updateVendorDetail(generics.UpdateAPIView):
+    permission_classes=[IsAuthenticated]
     serializer_class=VendorSerializer
     queryset=Vendor.objects.all()
 
 class deleteVendor(generics.DestroyAPIView):
+    permission_classes=[IsAuthenticated]
     serializer_class=VendorSerializer
     queryset=Vendor.objects.all()
 
 # For Purchase Order
 class createPurchaseOrder(generics.CreateAPIView):
+    permission_classes=[IsAuthenticated]
     serializer_class=PurchaseOrderSerializer
     queryset=PurchaseOrder.objects.all()
 
 class listPurchaseOrder(generics.ListAPIView):
+    permission_classes=[IsAuthenticated]
     def get_queryset(self):
         queryset=PurchaseOrder.objects.all()
         return queryset
@@ -48,19 +56,23 @@ class listPurchaseOrder(generics.ListAPIView):
             return HttpResponse("No Orders of current vendor")
 
 class PurchaseOrderDetail(generics.RetrieveAPIView):
+    permission_classes=[IsAuthenticated]
     serializer_class=PurchaseOrderSerializer
     queryset=PurchaseOrder.objects.all()
     lookup_field='pk'
 
 class updatePurchaseOrderDetail(generics.UpdateAPIView):
+    permission_classes=[IsAuthenticated]
     serializer_class=PurchaseOrderSerializer
     queryset=PurchaseOrder.objects.all()
 
 class deletePurchaseOrder(generics.DestroyAPIView):
+    permission_classes=[IsAuthenticated]
     serializer_class=PurchaseOrderSerializer
     queryset=PurchaseOrder.objects.all()
 
 class PerformanceView(generics.RetrieveAPIView):
+    permission_classes=[IsAuthenticated]
     def get_queryset(self):
         queryset=Performance.objects.all()
         return queryset
@@ -74,6 +86,7 @@ class PerformanceView(generics.RetrieveAPIView):
     
 
 class Recalc(APIView):
+    permission_classes=[IsAuthenticated]
     def get_object(self, pk):
         return PurchaseOrder.objects.get(pk=pk)
 

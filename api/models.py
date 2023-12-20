@@ -10,6 +10,9 @@ class Vendor(models.Model):
     quality_rating_avg=models.FloatField(null=True)
     average_response_time=models.FloatField(null=True)
     fulfillment_rate=models.FloatField(null=True)
+    def __str__(self):
+        return self.name
+    
 
 class PurchaseOrder(models.Model):
     po_number=models.CharField(max_length=50,null=True) #- Unique number identifying the PO.
@@ -23,7 +26,8 @@ class PurchaseOrder(models.Model):
     quality_rating=models.FloatField(null=True) #- Rating given to the vendor for this PO (nullable).
     issue_date=models.DateTimeField(auto_now=True) #- Timestamp when the PO was issued to the vendor.
     acknowledgment_date=models.DateTimeField(null=True) #to be given by vendor
-
+    def __str__(self):
+        return self.vendor.name
 class Performance(models.Model):
     vendor= models.ForeignKey(Vendor,on_delete=models.CASCADE)   # - Link to the Vendor model.
     date= models.DateTimeField(auto_now=True)   # - Date of the performance record.
@@ -31,3 +35,5 @@ class Performance(models.Model):
     quality_rating_avg= models.FloatField(null=True)   # - Historical record of the quality rating average.
     average_response_time= models.FloatField()   # - Historical record of the average response time.
     fulfillment_rate= models.FloatField()
+    def __str__(self):
+        return self.vendor.name
